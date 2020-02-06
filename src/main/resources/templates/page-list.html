@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<head>
+    <meta charset="utf-8">
+    <th:block th:include="fragment_repository.html :: head-data-fragment">
+    </th:block>
+</head>
+</head>
+
+<body>
+<!-- Side Navigation -->
+    <nav th:replace="fragment_repository.html :: screen-navbar-fragment"></nav>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="content-main-div w3-main">
+        <!-- Header -->
+        <header class="w3-container" style="padding-top:22px">
+            <h5><b><i class="fa fa-dashboard"></i> Strona</b></h5>
+        </header>
+
+        <a class="w3-margin-left" th:href="@{'/createpage'}">
+            <button class="w3-button w3-green">Dodaj nową</button>
+        </a>
+
+        <div th:switch="${pageList.getContent().size()}">
+            <h2 th:case="'0'">No pages yet!</h2>
+            <div class="w3-margin-left w3-padding-32" th:case="*">
+
+                <div th:each="page, iterStat : ${pageList}">
+<!-- 
+					<div th:insert="fragment_repository.html :: news-item-fragment(dbNewsObject = ${news}, objectIndex = ${iterStat.index})"/> 
+      -->            
+                </div>
+        <div class="w3-center">                
+                <div th:if="${pageList.totalPages > 0}" class="pagination" th:each="pageNumber : ${pageNumbers}">
+                    <a th:href="@{/pagelist(size=${pageList.size}, page=${pageNumber})}" th:text=${pageNumber} th:class="${pageNumber==pageList.number + 1} ? active"></a>
+
+                </div>
+</div>               
+                
+            </div>
+
+        </div>
+    </div>
+
+<!-- Script for Sidebar, Tabs, Accordions, Progress bars and slideshows -->
+<script type="text/javascript" th:replace="fragment_repository.html :: js-script-fragment"></script>
+</body>
+
+</html>
